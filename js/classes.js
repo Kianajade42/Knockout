@@ -1,12 +1,15 @@
 class Player {
-    constructor({position}) {
+    constructor({position, imageSrc}) {
         this.position = position 
         this.width = 50
-        this.height = 150    
+        this.height = 150 
+        this.image = new Image()
+        this.image.src = imageSrc   
     }
 
     draw() {
-
+        c.drawImage(this.image, 0, 0, this.image.width,    this.image.height,     // source rectangle
+                   0, 0, canvas.width, canvas.height);
     }
     
     update() {
