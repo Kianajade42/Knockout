@@ -1,6 +1,6 @@
  X -Project Setup 
  X -create players
  X -move characters/ event listeners
-  -moves/attacks
+ X -moves/attacks
   -tracking moves(health bar)
   -timer/game over

@@ -7,26 +7,57 @@ canvas.height = 576
 c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.7
 class Player {
-    constructor({position, velocity}) {
+    constructor({position, velocity, color = 'red', offset}) {
         this.position = position 
         this.velocity = velocity 
+        this.width = 50
         this.height = 150 
         this.lastKey
+        this.color = color
+        this.attackBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            offset,
+              width: 100,
+              height: 50
+        }
+        this.isAttacking
     }
 
     draw() {
-        c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, 50, this.height)
-
+        c.fillStyle = this.color
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+       
+        if (this.isAttacking){
+            c.fillStyle = 'green'
+        c.fillRect(this.attackBox.position.x,
+             this.attackBox.position.y, 
+             this.attackBox.width, 
+             this.attackBox.height)
+        }
+        
+    
     }
     update() {
         this.draw()
+        this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+        this.attackBox.position.y = this.position.y
+
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height){
             this.velocity.y = 0
         } else  this.velocity.y += gravity
+    }
+
+    attack(){
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 100)
     }
 }
 
@@ -38,6 +69,11 @@ class Player {
 velocity: {
     x: 0,
     y: 0
+},
+offset: {
+    x: 0,
+    y: 0
+
 }
 })
 
@@ -51,7 +87,13 @@ velocity: {
 velocity:{
     x: 0,
     y: 0
-}
+},
+offset: {
+    x: -50,
+    y: 0
+
+},
+color: 'blue'
 })
 //  playerTwo.draw()
  const keys = {
@@ -69,7 +111,15 @@ velocity:{
     }
 
  }
-
+function rectangularCollision({rectangle1, rectangle2}){
+    
+    return (
+         rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && 
+         rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width &&
+         rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y &&
+         rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height 
+    )
+}
 
 function animation(){
 window.requestAnimationFrame(animation)
@@ -92,13 +142,36 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
 } else if (keys.ArrowRight.pressed && playerTwo.lastKey === 'ArrowRight' ){
     playerTwo.velocity.x = 5
 }
- }
-
+if (
+    rectangularCollision({
+        rectangle1: playerOne,
+        rectangle2: playerTwo
+    })
+   &&
+    playerOne.isAttacking
+    ) {
+        playerOne.isAttacking = false
+        console.log('hit')
+    }
+ 
+ if (
+    rectangularCollision({
+        rectangle1: playerTwo,
+        rectangle2: playerOne
+    })
+   &&
+    playerTwo.isAttacking
+    ) {
+        playerTwo.isAttacking = false
+        console.log('2hit')
+    }
+}
+ 
  animation()
 
 
  window.addEventListener('keydown', (event) => {
-    console.log(event.key)
+    // console.log(event.key)
     switch (event.key) {
         //player one
         case 'd' :
@@ -111,8 +184,12 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
         break
           case 'w' :
        playerOne.velocity.y = -20
-       playerOne.lastKey = 'w'
         break
+         case ' ':
+            playerOne.attack()
+        // playerOne.isAttacking = true
+        break
+
         //player two
         case 'ArrowRight' :
        keys.ArrowRight.pressed = true
@@ -125,8 +202,12 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
           case 'ArrowUp' :
        playerTwo.velocity.y = -20
         break
+          case 'ArrowDown':
+            //  playerTwo.attack()
+           playerTwo.isAttacking = true
+        break
     }
-    console.log(event.key)
+    // console.log(event.key)
  })
   window.addEventListener('keyup', (event) => {
     switch (event.key) {
@@ -145,5 +226,5 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
        keys.ArrowLeft.pressed = false
         break
     }
-    console.log(event.key)
+    // console.log(event.key)
  })
