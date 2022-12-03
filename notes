@@ -2,5 +2,5 @@
  X -create players
  X -move characters/ event listeners
  X -moves/attacks
-  -tracking moves(health bar)
+ X -tracking moves(health bar)
   -timer/game over

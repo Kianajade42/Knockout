@@ -24,6 +24,7 @@ class Player {
               height: 50
         }
         this.isAttacking
+        this.health = 100
     }
 
     draw() {
@@ -151,7 +152,9 @@ if (
     playerOne.isAttacking
     ) {
         playerOne.isAttacking = false
-        console.log('hit')
+        playerTwo.health -= 20
+        document.querySelector('#playerTwoHealth').style.width = playerTwo.health + "%"
+        // console.log('hit')
     }
  
  if (
@@ -163,7 +166,9 @@ if (
     playerTwo.isAttacking
     ) {
         playerTwo.isAttacking = false
-        console.log('2hit')
+        playerOne.health -= 20
+        document.querySelector('#playerOneHealth').style.width = playerOne.health + "%"
+        // console.log('2hit')
     }
 }
  
