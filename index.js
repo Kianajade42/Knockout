@@ -78,7 +78,6 @@ offset: {
 }
 })
 
-//  playerOne.draw()
 
  const playerTwo = new Player({
     position:{
@@ -96,7 +95,7 @@ offset: {
 },
 color: 'blue'
 })
-//  playerTwo.draw()
+
  const keys = {
     a:{
         pressed:false
@@ -171,12 +170,11 @@ if (
         rectangle2: playerTwo
     })
    &&
-    playerOne.isAttacking
-    ) {
+    playerOne.isAttacking)
+     {
         playerOne.isAttacking = false
         playerTwo.health -= 20
         document.querySelector('#playerTwoHealth').style.width = playerTwo.health + "%"
-        // console.log('hit')
     }
  
  if (
@@ -190,7 +188,6 @@ if (
         playerTwo.isAttacking = false
         playerOne.health -= 20
         document.querySelector('#playerOneHealth').style.width = playerOne.health + "%"
-        // console.log('2hit')
     }
      if (playerTwo.health <= 0 || playerOne.health <= 0){
         winner({playerOne, playerTwo, timerId})
@@ -201,7 +198,6 @@ if (
 
 
  window.addEventListener('keydown', (event) => {
-    // console.log(event.key)
     switch (event.key) {
         //player one
         case 'd' :
@@ -217,7 +213,6 @@ if (
         break
          case ' ':
             playerOne.attack()
-        // playerOne.isAttacking = true
         break
 
         //player two
@@ -233,11 +228,9 @@ if (
        playerTwo.velocity.y = -20
         break
           case 'ArrowDown':
-            //  playerTwo.attack()
            playerTwo.isAttacking = true
         break
     }
-    // console.log(event.key)
  })
   window.addEventListener('keyup', (event) => {
     switch (event.key) {
@@ -256,5 +249,4 @@ if (
        keys.ArrowLeft.pressed = false
         break
     }
-    // console.log(event.key)
  })
