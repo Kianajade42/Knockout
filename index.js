@@ -11,12 +11,13 @@ const background = new Player({
         x:0,
         y:0
     },
-    imageSrc: './img/background/background_layer_1.png'
+    imageSrc:'./img/background/background_layer_1.png',
+    scale: 4
 })
   const playerOne = new Character({
     position: {
     x: 0,
-    y: 0
+    y: 245
  },
 velocity: {
     x: 0,
@@ -26,7 +27,14 @@ offset: {
     x: 0,
     y: 0
 
-}
+},
+imageSrc: './img/PlayerOne/Sprites/Idle.png',
+ framesMax: 8,
+ scale: 2.7,
+//  offset: {
+// x: 215,
+// y: 150
+//  }
 })
 
 
@@ -71,7 +79,7 @@ c.fillStyle ='black'
 c.fillRect(0,0,canvas.width, canvas.height)
 background.update()
 playerOne.update()
-playerTwo.update()
+// playerTwo.update()
 
 playerOne.velocity.x = 0
 playerTwo.velocity.x = 0
