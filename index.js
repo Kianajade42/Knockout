@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 canvas.width = 1024
-canvas.height = 576
+canvas.height = 580
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.7
@@ -17,7 +17,7 @@ const background = new Player({
   const playerOne = new Character({
     position: {
     x: 0,
-    y: 245
+    y: 0
  },
 velocity: {
     x: 0,
@@ -31,10 +31,32 @@ offset: {
 imageSrc: './img/PlayerOne/Sprites/Idle.png',
  framesMax: 8,
  scale: 2.7,
-//  offset: {
-// x: 215,
-// y: 150
-//  }
+ offset: {
+    x: 150,
+    y: 0
+ },
+ sprites: {
+    idle: {
+    imageSrc: './img/PlayerOne/Sprites/Idle.png',
+    framesMax: 8
+},
+    run: {
+    imageSrc: './img/PlayerOne/Sprites/Run.png',
+    framesMax: 8
+},
+    jump: {
+    imageSrc: './img/PlayerOne/Sprites/Jump.png',
+    framesMax: 2
+},
+    fall: {
+    imageSrc: './img/PlayerOne/Sprites/Fall.png',
+    framesMax: 2
+},
+    attack1: {
+    imageSrc: './img/PlayerOne/Sprites/Attack1.png',
+    framesMax: 6
+}
+ }
 })
 
 
@@ -84,10 +106,22 @@ playerOne.update()
 playerOne.velocity.x = 0
 playerTwo.velocity.x = 0
 //Player one
+
 if (keys.a.pressed && playerOne.lastKey === 'a'){
     playerOne.velocity.x = -5
+    playerOne.switchSprite('run')
 } else if (keys.d.pressed && playerOne.lastKey === 'd' ){
     playerOne.velocity.x = 5
+    playerOne.switchSprite('run')
+}else {
+playerOne.switchSprite('idle')
+}
+
+    if (playerOne.velocity.y < 0){
+        playerOne.switchSprite('jump') 
+    } else if (playerOne.velocity.y > 0){
+        playerOne.switchSprite('fall')
+    }
 }
 //player two
 if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
@@ -123,7 +157,7 @@ if (
      if (playerTwo.health <= 0 || playerOne.health <= 0){
         winner({playerOne, playerTwo, timerId})
      }
-}
+
  
  animation()
 
