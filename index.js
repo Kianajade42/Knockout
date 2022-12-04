@@ -14,28 +14,29 @@ const background = new Player({
     imageSrc:'./img/background/background_layer_1.png',
     scale: 4
 })
+
   const playerOne = new Character({
     position: {
     x: 0,
     y: 0
  },
-velocity: {
+    velocity: {
     x: 0,
     y: 0
 },
-offset: {
+    offset: {
     x: 0,
     y: 0
 
 },
-imageSrc: './img/PlayerOne/Sprites/Idle.png',
- framesMax: 8,
- scale: 2.7,
- offset: {
-    x: 150,
-    y: 0
+    imageSrc: './img/PlayerOne/Sprites/Idle.png',
+    framesMax: 8,
+    scale: 2.7,
+    offset: {
+     x: 150,
+     y: 0
  },
- sprites: {
+    sprites: {
     idle: {
     imageSrc: './img/PlayerOne/Sprites/Idle.png',
     framesMax: 8
@@ -62,8 +63,8 @@ imageSrc: './img/PlayerOne/Sprites/Idle.png',
 
  const playerTwo = new Character({
     position:{
-    x: 400,
-    y: 100
+    x: 760,
+    y: 1000
  },
 velocity:{
     x: 0,
@@ -74,7 +75,35 @@ offset: {
     y: 0
 
 },
-color: 'blue'
+imageSrc: './img/PlayerTwo/Sprites/Idle.png',
+ framesMax: 4,
+ scale: 3,
+ offset: {
+    x: 150,
+    y: 0
+ },
+ sprites: {
+    idle: {
+    imageSrc: './img/PlayerTwo/Sprites/Idle.png',
+    framesMax: 4
+},
+    run: {
+    imageSrc: './img/PlayerTwo/Sprites/Run.png',
+    framesMax: 8
+},
+    jump: {
+    imageSrc: './img/PlayerTwo/Sprites/Jump.png',
+    framesMax: 2
+},
+    fall: {
+    imageSrc: './img/PlayerTwo/Sprites/Fall.png',
+    framesMax: 2
+},
+    attack1: {
+    imageSrc: './img/PlayerTwo/Sprites/Attack1.png',
+    framesMax: 4
+}
+ }
 })
 
  const keys = {
@@ -101,10 +130,11 @@ c.fillStyle ='black'
 c.fillRect(0,0,canvas.width, canvas.height)
 background.update()
 playerOne.update()
-// playerTwo.update()
+playerTwo.update()
 
 playerOne.velocity.x = 0
 playerTwo.velocity.x = 0
+
 //Player one
 
 if (keys.a.pressed && playerOne.lastKey === 'a'){
@@ -113,8 +143,8 @@ if (keys.a.pressed && playerOne.lastKey === 'a'){
 } else if (keys.d.pressed && playerOne.lastKey === 'd' ){
     playerOne.velocity.x = 5
     playerOne.switchSprite('run')
-}else {
-playerOne.switchSprite('idle')
+}  else {
+    playerOne.switchSprite('idle')
 }
 
     if (playerOne.velocity.y < 0){
@@ -122,13 +152,24 @@ playerOne.switchSprite('idle')
     } else if (playerOne.velocity.y > 0){
         playerOne.switchSprite('fall')
     }
-}
+
 //player two
 if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
     playerTwo.velocity.x = -5
+    playerTwo.switchSprite('run')
 } else if (keys.ArrowRight.pressed && playerTwo.lastKey === 'ArrowRight' ){
     playerTwo.velocity.x = 5
+    playerTwo.switchSprite('run')
+} else {
+    playerTwo.switchSprite('idle')
 }
+
+    if (playerTwo.velocity.y < 0){
+        playerTwo.switchSprite('jump') 
+    } else if (playerTwo.velocity.y > 0){
+        playerTwo.switchSprite('fall')
+    }
+
 if (
     rectangularCollision({
         rectangle1: playerOne,
@@ -157,7 +198,7 @@ if (
      if (playerTwo.health <= 0 || playerOne.health <= 0){
         winner({playerOne, playerTwo, timerId})
      }
-
+    }
  
  animation()
 
@@ -177,7 +218,7 @@ if (
        playerOne.velocity.y = -20
         break
          case ' ':
-            playerOne.attack()
+        playerOne.attack()
         break
 
         //player two
@@ -193,7 +234,7 @@ if (
        playerTwo.velocity.y = -20
         break
           case 'ArrowDown':
-           playerTwo.isAttacking = true
+        playerTwo.attack()
         break
     }
  })
