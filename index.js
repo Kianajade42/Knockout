@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
 canvas.width = 1024
-canvas.height = 580
+canvas.height = 576
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 0.7
@@ -12,7 +12,7 @@ const background = new Player({
         y:0
     },
     imageSrc:'./img/background/background_layer_1.png',
-    scale: 4
+     scale: 4
 })
 
   const playerOne = new Character({
@@ -31,10 +31,10 @@ const background = new Player({
 },
     imageSrc: './img/PlayerOne/Sprites/Idle.png',
     framesMax: 8,
-    scale: 2.7,
+    scale: 2.5,
     offset: {
-     x: 150,
-     y: 0
+     x: 165,
+     y: 60
  },
     sprites: {
     idle: {
@@ -63,8 +63,8 @@ const background = new Player({
 
  const playerTwo = new Character({
     position:{
-    x: 760,
-    y: 1000
+    x: 400,
+    y: 100
  },
 velocity:{
     x: 0,
@@ -77,10 +77,10 @@ offset: {
 },
 imageSrc: './img/PlayerTwo/Sprites/Idle.png',
  framesMax: 4,
- scale: 3,
+ scale: 2.5,
  offset: {
-    x: 150,
-    y: 0
+    x: -300,
+    y: 77
  },
  sprites: {
     idle: {
@@ -220,8 +220,10 @@ if (
          case ' ':
         playerOne.attack()
         break
+    }
 
         //player two
+        switch (event.key) {
         case 'ArrowRight' :
        keys.ArrowRight.pressed = true
        playerTwo.lastKey = 'ArrowRight'
@@ -234,10 +236,11 @@ if (
        playerTwo.velocity.y = -20
         break
           case 'ArrowDown':
-        playerTwo.attack()
-        break
-    }
- })
+         playerTwo.attack()
+        break 
+ }
+})
+
   window.addEventListener('keyup', (event) => {
     switch (event.key) {
         //player one
