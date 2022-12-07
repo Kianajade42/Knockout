@@ -55,11 +55,12 @@ class Character extends Player {
     constructor({
         position,
         velocity,
-        offset = {x:0, y:0}, 
+        offset = {x: 0, y: 0}, 
         imageSrc,
         scale = 1, 
         framesMax = 1,
-        sprites
+        sprites,
+        attackBox = { offset: {}, width: undefined, height: undefined}
         }) {
         super({
             imageSrc,
@@ -79,10 +80,15 @@ class Character extends Player {
                 x: this.position.x,
                 y: this.position.y
             },
-            offset,
-              width: 100,
-              height: 50
+            //  offset,
+            //   width: 100,
+            //   height: 50
+            offset: attackBox.offset,
+            width: attackBox.width,
+            height: attackBox.height,
         }
+        
+
         this.color
         this.framesCurrent = 0
         this.framesElapsed = 0
@@ -102,7 +108,9 @@ class Character extends Player {
         this.animateFrames()
 
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y 
+        this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
@@ -116,9 +124,9 @@ class Character extends Player {
     attack(){
         this.switchSprite('attack1')
         this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
+        // setTimeout(() => {
+        //     this.isAttacking = false
+        // }, 100)
     }
 
     switchSprite(sprite){

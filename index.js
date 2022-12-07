@@ -11,13 +11,13 @@ const background = new Player({
         x:0,
         y:0
     },
-    imageSrc:'./img/background/background_layer_1.png',
-     scale: 4
+    imageSrc:'./img/background/background_layer_104.png',
+     scale: 3.2
 })
 
   const playerOne = new Character({
     position: {
-    x: 0,
+    x: 30,
     y: 0
  },
     velocity: {
@@ -33,8 +33,8 @@ const background = new Player({
     framesMax: 8,
     scale: 2.5,
     offset: {
-     x: 165,
-     y: 60
+    x: 215,
+    y: 95
  },
     sprites: {
     idle: {
@@ -57,13 +57,21 @@ const background = new Player({
     imageSrc: './img/PlayerOne/Sprites/Attack1.png',
     framesMax: 6
 }
- }
+ },
+ attackBox: {
+    offset: {
+        x:100,
+        y:50,
+    },
+    width: 160,
+    height: 50
+}
 })
 
 
  const playerTwo = new Character({
     position:{
-    x: 400,
+    x: 930,
     y: 100
  },
 velocity:{
@@ -79,8 +87,8 @@ imageSrc: './img/PlayerTwo/Sprites/Idle.png',
  framesMax: 4,
  scale: 2.5,
  offset: {
-    x: -300,
-    y: 77
+    x: 215,
+    y: 110
  },
  sprites: {
     idle: {
@@ -103,7 +111,15 @@ imageSrc: './img/PlayerTwo/Sprites/Idle.png',
     imageSrc: './img/PlayerTwo/Sprites/Attack1.png',
     framesMax: 4
 }
- }
+ },
+ attackBox: {
+    offset: {
+        x:-170,
+        y:50,
+    },
+    width: 170,
+    height: 50
+}
 })
 
  const keys = {
@@ -169,32 +185,40 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
     } else if (playerTwo.velocity.y > 0){
         playerTwo.switchSprite('fall')
     }
-
+    
+ 
 if (
     rectangularCollision({
         rectangle1: playerOne,
         rectangle2: playerTwo
     })
    &&
-    playerOne.isAttacking)
+    playerOne.isAttacking && playerOne.framesCurrent === 4)
      {
         playerOne.isAttacking = false
         playerTwo.health -= 20
         document.querySelector('#playerTwoHealth').style.width = playerTwo.health + "%"
     }
  
+     if ( playerOne.isAttacking && playerOne.framesCurrent ===4 ){
+        playerOne.isAttacking = false
+     }
  if (
     rectangularCollision({
         rectangle1: playerTwo,
         rectangle2: playerOne
     })
    &&
-    playerTwo.isAttacking
+    playerTwo.isAttacking && playerTwo.framesCurrent === 2
     ) {
         playerTwo.isAttacking = false
         playerOne.health -= 20
         document.querySelector('#playerOneHealth').style.width = playerOne.health + "%"
     }
+ if ( playerTwo.isAttacking && playerTwo.framesCurrent ===4 ){
+        playerTwo.isAttacking = false
+     }
+
      if (playerTwo.health <= 0 || playerOne.health <= 0){
         winner({playerOne, playerTwo, timerId})
      }
