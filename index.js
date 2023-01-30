@@ -35,6 +35,7 @@ const background = new Player({
     offset: {
     x: 215,
     y: 95
+    //60
  },
     sprites: {
     idle: {
@@ -56,16 +57,24 @@ const background = new Player({
     attack1: {
     imageSrc: './img/PlayerOne/Sprites/Attack1.png',
     framesMax: 6
-}
+},
+    takeHit:{
+    imageSrc: './img/PlayerOne/Sprites/Take Hit - white silhouette.png',
+    framesMax: 4
  },
- attackBox: {
+    death: {
+    imageSrc: './img/PlayerOne/Sprites/Death.png',
+    framesMax: 6
+ },
+    attackBox: {
     offset: {
         x:100,
         y:50,
     },
     width: 160,
     height: 50
-}
+},
+    }
 })
 
 
@@ -89,6 +98,7 @@ imageSrc: './img/PlayerTwo/Sprites/Idle.png',
  offset: {
     x: 215,
     y: 110
+    //77
  },
  sprites: {
     idle: {
@@ -110,16 +120,24 @@ imageSrc: './img/PlayerTwo/Sprites/Idle.png',
     attack1: {
     imageSrc: './img/PlayerTwo/Sprites/Attack1.png',
     framesMax: 4
-}
+},
+    takeHit:{
+    imageSrc: './img/PlayerTwo/Sprites/Take hit.png',
+    framesMax: 3 
  },
- attackBox: {
+    death: {
+    imageSrc: './img/PlayerTwo/Sprites/Death.png',
+    framesMax: 7
+ },
+    attackBox: {
     offset: {
         x:-170,
         y:50,
     },
     width: 170,
     height: 50
-}
+},
+ }
 })
 
  const keys = {
@@ -186,36 +204,36 @@ if (keys.ArrowLeft.pressed && playerTwo.lastKey === 'ArrowLeft'){
         playerTwo.switchSprite('fall')
     }
     
- 
 if (
     rectangularCollision({
         rectangle1: playerOne,
         rectangle2: playerTwo
-    })
-   &&
-    playerOne.isAttacking && playerOne.framesCurrent === 4)
-     {
+    }) &&
+    playerOne.isAttacking && 
+    playerOne.framesCurrent === 4
+    ) {
+        playerTwo.takeHit()
         playerOne.isAttacking = false
-        playerTwo.health -= 20
+        // playerTwo.health -= 20
         document.querySelector('#playerTwoHealth').style.width = playerTwo.health + "%"
     }
  
-     if ( playerOne.isAttacking && playerOne.framesCurrent ===4 ){
+     if ( playerOne.isAttacking && playerOne.framesCurrent === 4 ){
         playerOne.isAttacking = false
      }
+     
  if (
     rectangularCollision({
         rectangle1: playerTwo,
         rectangle2: playerOne
-    })
-   &&
+    }) &&
     playerTwo.isAttacking && playerTwo.framesCurrent === 2
     ) {
+        playerOne.takeHit()
         playerTwo.isAttacking = false
-        playerOne.health -= 20
         document.querySelector('#playerOneHealth').style.width = playerOne.health + "%"
     }
- if ( playerTwo.isAttacking && playerTwo.framesCurrent ===4 ){
+ if ( playerTwo.isAttacking && playerTwo.framesCurrent === 2 ){
         playerTwo.isAttacking = false
      }
 
