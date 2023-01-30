@@ -19,7 +19,7 @@ if (playerOne.health === playerTwo.health){
         document.querySelector('#displayText').innerHTML = 'Player 2 wins'   
 }
 }
-let timer = 10
+let timer = 2
 let timerId
 function decreaseTimer(){
     timerId = setTimeout(decreaseTimer, 1000)
