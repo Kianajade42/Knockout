@@ -55,19 +55,20 @@ class Character extends Player {
     constructor({
         position,
         velocity,
-        offset = {x: 0, y: 0}, 
+        color ='red',
         imageSrc,
         scale = 1, 
         framesMax = 1,
+        offset = {x: 0, y: 0}, 
         sprites,
         attackBox = { offset: {}, width: undefined, height: undefined}
         }) {
         super({
-            imageSrc,
-            scale,
-            framesMax,
-            position,
-            offset
+          position,
+         imageSrc,
+        scale,
+        framesMax,
+        offset
 
         })
     
@@ -85,7 +86,7 @@ class Character extends Player {
             //   height: 50
             offset: attackBox.offset,
             width: attackBox.width,
-            height: attackBox.height,
+            height: attackBox.height
         }
         
 
@@ -110,8 +111,13 @@ class Character extends Player {
 
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
-
-        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        
+//attackbox visible
+        // c.fillRect(
+        //     this.attackBox.position.x, 
+        //     this.attackBox.position.y, 
+        //     this.attackBox.width, 
+        //     this.attackBox.height)
 
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y

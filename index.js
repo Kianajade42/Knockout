@@ -65,17 +65,18 @@ const background = new Player({
     death: {
     imageSrc: './img/PlayerOne/Sprites/Death.png',
     framesMax: 6
+    }
  },
+
     attackBox: {
     offset: {
         x:100,
-        y:50,
+        y:115,
     },
     width: 160,
     height: 50
 },
-    }
-})
+    })
 
 
  const playerTwo = new Character({
@@ -128,17 +129,17 @@ imageSrc: './img/PlayerTwo/Sprites/Idle.png',
     death: {
     imageSrc: './img/PlayerTwo/Sprites/Death.png',
     framesMax: 7
- },
+ }
+},
     attackBox: {
     offset: {
         x:-170,
-        y:50,
+        y:115,
     },
     width: 170,
     height: 50
 },
- }
-})
+ })
 
  const keys = {
     a:{
