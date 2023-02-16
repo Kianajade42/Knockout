@@ -90,7 +90,7 @@ class Character extends Player {
         }
         
 
-        this.color
+        this.color = color
         this.framesCurrent = 0
         this.framesElapsed = 0
         this.framesHold = 5
