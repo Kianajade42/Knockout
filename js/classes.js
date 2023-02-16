@@ -137,7 +137,7 @@ class Character extends Player {
     }
  takeHit(){
     // this.switchSprite('takeHit')
-    this.health -= 20
+    this.health -= 5
 
      if (this.health <= 0){
         this.switchSprite('death')
