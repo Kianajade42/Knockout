@@ -144,9 +144,12 @@ class Character extends Player {
      } else this.switchSprite('takeHit')
  }
     switchSprite(sprite){
+        // console.log("a")
         if (this.image === this.sprites.death.image) {
             if(this.framesCurrent === this.sprites.death.framesMax - 1)
+            console.log("b")
                 this.dead = true 
+                // console.log("c")
             return
          }
 
