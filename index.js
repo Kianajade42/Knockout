@@ -247,6 +247,7 @@ if (
 
 
  window.addEventListener('keydown', (event) => {
+    if(!playerOne.dead){
     switch (event.key) {
         //player one
         case 'd' :
@@ -264,8 +265,10 @@ if (
         playerOne.attack()
         break
     }
+}
 
         //player two
+        if (!playerTwo.dead) {
         switch (event.key) {
         case 'ArrowRight' :
        keys.ArrowRight.pressed = true
@@ -282,6 +285,7 @@ if (
          playerTwo.attack()
         break 
  }
+}
 })
 
   window.addEventListener('keyup', (event) => {
