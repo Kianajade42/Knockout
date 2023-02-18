@@ -135,6 +135,7 @@ class Character extends Player {
         //     this.isAttacking = false
         // }, 100)
     }
+
  takeHit(){
     // this.switchSprite('takeHit')
     this.health -= 5
@@ -143,22 +144,28 @@ class Character extends Player {
         this.switchSprite('death')
      } else this.switchSprite('takeHit')
  }
+
     switchSprite(sprite){
         // console.log("a")
         if (this.image === this.sprites.death.image) {
-            if(this.framesCurrent === this.sprites.death.framesMax - 1)
-            console.log("b")
+            if (this.framesCurrent === this.sprites.death.framesMax - 1)
+            // console.log("b")
                 this.dead = true 
                 // console.log("c")
             return
          }
 
-        if (this.image === this.sprites.attack1.image && 
-            this.framesCurrent < this.sprites.attack1.framesMax - 1) 
+        if (
+            this.image === this.sprites.attack1.image && 
+            this.framesCurrent < this.sprites.attack1.framesMax - 1
+            ) 
             
          return
-                if ( this.image === this.sprites.takeHit.image &&
-                    this.framesCurrent < this.sprites.takeHit.framesMax -1)
+
+                if ( 
+                    this.image === this.sprites.takeHit.image &&
+                    this.framesCurrent < this.sprites.takeHit.framesMax -1
+                    )
                 return
 
         switch(sprite){
